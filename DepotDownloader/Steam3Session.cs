@@ -513,7 +513,8 @@ namespace DepotDownloader
                                 Username = logonDetails.Username,
                                 Password = logonDetails.Password,
                                 IsPersistentSession = ContentDownloader.Config.RememberPassword,
-                                Authenticator = new UserConsoleAuthenticator(),
+                                Authenticator = ContentDownloader.Config.AuthenticatorCmd == null ? new UserConsoleAuthenticator()
+                                    : new CmdAuthenticator(ContentDownloader.Config.AuthenticatorCmd),
                             });
                         }
                         catch (TaskCanceledException)
